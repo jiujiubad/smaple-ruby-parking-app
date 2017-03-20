@@ -4,6 +4,18 @@ class Parking < ApplicationRecord
 
   validate :validate_end_at_and_amount
 
+  # before_validation :calculate_amount
+
+  def calculate_amount
+    if self.amount.blank? && self.start_at.present? && self.end_at.present?
+      self.amount = 9487 # TODO: 等會再來處理
+    end
+  end
+
+  def duration
+    ( end_at - start_at ) / 60
+  end
+
   protected
 
   def validate_end_at_and_amount
