@@ -7,7 +7,16 @@ class ParkingsController < ApplicationController
 
   # Step2: 新建一筆停車，紀錄下開始時間
   def create
-    @parking = Parking.new( :parking_type => "guest", :start_at => Time.now )
+    @parking = Parking.new( :start_at => Time.now )
+
+    if current_user
+      @parking.parking_type = params[:parking][:parking_type]
+    else
+      @parking.parking_type = "guest"
+    end
+
+    @parking.user = current_user
+
     @parking.save!
 
     redirect_to parking_path(@parking)

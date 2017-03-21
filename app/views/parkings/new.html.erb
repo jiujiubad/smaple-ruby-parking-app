@@ -2,6 +2,20 @@
 
 <%= form_for @parking do |f| %>
 
+  <% if current_user %>
+
+    <label>
+      <%= f.radio_button :parking_type, "short-term" %> 短期費率
+    </label>
+
+    <label>
+      <%= f.radio_button :parking_type, "long-term" %> 長期費率
+    </label>
+
+  <% else %>
+    一般費率
+  <% end %>
+
   <p><%= f.submit "開始計費" %></p>
 
 <% end %>

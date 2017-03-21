@@ -1,6 +1,6 @@
 class Parking < ApplicationRecord
 
-  belongs_to :user
+  belongs_to :user, :optional => true
 
   validates_presence_of :parking_type, :start_at
 
