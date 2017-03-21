@@ -8,7 +8,16 @@ class Parking < ApplicationRecord
 
   def calculate_amount
     if self.amount.blank? && self.start_at.present? && self.end_at.present?
-      self.amount = 9487 # TODO: 等會再來處理
+      total = 0
+      if duration <= 60
+        total = 2
+      else
+        total += 2
+        left_duration = duration - 60
+        total += ( left_duration.to_f / 30 ).ceil
+      end
+
+      self.amount = total
     end
   end
 
