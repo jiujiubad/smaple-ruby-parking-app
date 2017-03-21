@@ -1,5 +1,7 @@
 class Parking < ApplicationRecord
 
+  belongs_to :user
+
   validates_presence_of :parking_type, :start_at
 
   validate :validate_end_at_and_amount
