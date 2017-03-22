@@ -52,6 +52,15 @@ RSpec.describe Parking, type: :model do
         @parking = Parking.new( :parking_type => "guest", :user => @user, :start_at => @time )
       end
 
+      # Not recommend:
+      #[[30, 200], [60, 200], [61, 300], [90, 300], [120, 400]].each do |data|
+      #  it "#{data[0]} mins should be #{data[1]}" do
+      #    @parking.end_at = @time + data[0].minutes
+      #    @parking.save
+      #    expect(@parking.amount).to eq(data[1])
+      #  end
+      #end
+
       it "30 mins should be ¥2" do
         @parking.end_at = @time + 30.minutes
         @parking.save
