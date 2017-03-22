@@ -8,8 +8,7 @@ RSpec.describe Parking, type: :model do
         t = Time.now
         parking = Parking.new( :parking_type => "short-term", :start_at => t, :end_at => t + 30.minutes )
         parking.user = User.create( :email => "test@example.com", :password => "123455678")
-
-        parking.calculate_amount
+        parking.save
         expect(parking.amount).to eq(200)
       end
 
@@ -17,8 +16,7 @@ RSpec.describe Parking, type: :model do
         t = Time.now
         parking = Parking.new( :parking_type => "short-term", :start_at => t, :end_at => t + 60.minutes )
         parking.user = User.create( :email => "test@example.com", :password => "123455678")
-
-        parking.calculate_amount
+        parking.save
         expect( parking.amount ).to eq(200)
       end
 
@@ -26,9 +24,7 @@ RSpec.describe Parking, type: :model do
         t = Time.now
         parking = Parking.new( :parking_type => "short-term", :start_at => t, :end_at => t + 61.minutes )
         parking.user = User.create( :email => "test@example.com", :password => "123455678")
-
-        parking.calculate_amount
-
+        parking.save
         expect( parking.amount ).to eq(250)
       end
 
@@ -36,8 +32,7 @@ RSpec.describe Parking, type: :model do
         t = Time.now
         parking = Parking.new( :parking_type => "short-term", :start_at => t, :end_at => t + 90.minutes )
         parking.user = User.create( :email => "test@example.com", :password => "123455678")
-
-        parking.calculate_amount
+        parking.save
         expect( parking.amount ).to eq(250)
       end
 
@@ -45,8 +40,7 @@ RSpec.describe Parking, type: :model do
         t = Time.now
         parking = Parking.new( :parking_type => "short-term", :start_at => t, :end_at => t + 120.minutes )
         parking.user = User.create( :email => "test@example.com", :password => "123455678")
-
-        parking.calculate_amount
+        parking.save
         expect( parking.amount ).to eq(300)
       end
 
@@ -56,35 +50,35 @@ RSpec.describe Parking, type: :model do
       it "30 mins should be ¥2" do
         t = Time.now
         parking = Parking.new( :parking_type => "guest", :start_at => t, :end_at => t + 30.minutes )
-        parking.calculate_amount
+        parking.save
         expect(parking.amount).to eq(200)
       end
 
       it "60 mins should be ¥2" do
         t = Time.now
         parking = Parking.new( :parking_type => "guest", :start_at => t, :end_at => t + 60.minutes )
-        parking.calculate_amount
+        parking.save
         expect( parking.amount ).to eq(200)
       end
 
       it "61 mins should be ¥3" do
         t = Time.now
         parking = Parking.new( :parking_type => "guest", :start_at => t, :end_at => t + 61.minutes )
-        parking.calculate_amount
+        parking.save
         expect( parking.amount ).to eq(300)
       end
 
       it "90 mins should be ¥3" do
         t = Time.now
         parking = Parking.new( :parking_type => "guest", :start_at => t, :end_at => t + 90.minutes )
-        parking.calculate_amount
+        parking.save
         expect( parking.amount ).to eq(300)
       end
 
       it "120 mins should be ¥4" do
         t = Time.now
         parking = Parking.new( :parking_type => "guest", :start_at => t, :end_at => t + 120.minutes )
-        parking.calculate_amount
+        parking.save
         expect( parking.amount ).to eq(400)
       end
     end
@@ -101,13 +95,6 @@ RSpec.describe Parking, type: :model do
     #  expect( parking ).to be_valid
     #  # 這等同於 expect( parking.valid? ).to eq(true)
     #end
-
-    it "is invalid without amount" do
-      parking = Parking.new( :parking_type => "guest",
-                             :start_at => Time.now - 6.hours,
-                             :end_at => Time.now)
-      expect( parking ).to_not be_valid
-    end
 
     it "is invalid without amount" do
       parking = Parking.new( :parking_type => "guest",
