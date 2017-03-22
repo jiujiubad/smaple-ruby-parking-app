@@ -14,8 +14,10 @@ feature "register and login", :type => :feature do
     end
 
     click_button "Sign up"
-    save_and_open_page
     expect(page).to have_content("You have signed up successfully")
+
+    user = User.last
+    expect(user.email).to eq("foobar@example.com")
   end
 
   scenario "login and logout" do
