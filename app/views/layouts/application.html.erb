@@ -10,6 +10,14 @@
 
   <body>
 
+    <% if flash[:notice] %>
+      <%= flash[:notice] %>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <%= flash[:alert] %>
+    <% end %>
+
     <% if current_user %>
       <%= link_to('登出', destroy_user_session_path, :method => :delete) %>
       <%= link_to('修改密码', edit_registration_path(:user)) %>
